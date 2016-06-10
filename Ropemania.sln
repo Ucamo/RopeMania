@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{61390587-4644-8CE7-C063-DBF43ECAB84E}") = "Ropemania", "Assembly-CSharp.csproj", "{65323A9E-D252-6578-A856-9EBE6657BE3B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{65323A9E-D252-6578-A856-9EBE6657BE3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65323A9E-D252-6578-A856-9EBE6657BE3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65323A9E-D252-6578-A856-9EBE6657BE3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65323A9E-D252-6578-A856-9EBE6657BE3B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
