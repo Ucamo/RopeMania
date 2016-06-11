@@ -33,6 +33,10 @@ public class PlayerController : MonoBehaviour {
 		{
 			Jump();
 		}
+
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			Jump ();
+		}
 	}
 
 	//Handle ground contact
@@ -51,7 +55,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		//Contact with row
 		if (!gameOver) {
-			if (other.gameObject.tag == "MovingRope" & grounded==true) {
+			if (other.gameObject.tag == "MovingRope" && grounded==true) {
 				string layer =other.GetComponent<SpriteRenderer>().sortingLayerName;
 				if (layer == "Front") {
 					gameOver = true;
@@ -101,7 +105,7 @@ public class PlayerController : MonoBehaviour {
 
 		if (gameOver) {
 			style.normal.textColor = Color.red;
-			Rect rect = new Rect((Screen.width)/2-50, (Screen.height)/2-50, 0, 0);
+			Rect rect = new Rect((Screen.width)/2-70, (Screen.height)/2-50, 0, 0);
 			GUI.Label(rect, "Game Over",style);
 		}
 	}
