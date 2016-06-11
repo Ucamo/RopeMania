@@ -5,11 +5,14 @@ public class RopeController : MonoBehaviour {
 
 
 	string layerName="Front";
-
+	public float jumpForce;
+	public float gravity;
+	public float jumpInterval;
+	public float changeLayerInterval;
 
 	void Start () {
-		InvokeRepeating("HandleRopeMovement", 0.5f, 1.3f);
-		InvokeRepeating("ChangeLayer", 0.5f, 0.65f);
+		InvokeRepeating("HandleRopeMovement", 0.5f, jumpInterval);
+		InvokeRepeating("ChangeLayer", 0.5f, changeLayerInterval);
 
 	}
 
@@ -23,7 +26,9 @@ public class RopeController : MonoBehaviour {
 		GameObject[] movingRopes = GameObject.FindGameObjectsWithTag("MovingRope");
 		foreach (GameObject ropes in movingRopes) {
 
-			ropes.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, 900));
+			ropes.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpForce));
+			ropes.GetComponent<Rigidbody2D> ().gravityScale = gravity;
+
 		}
 				
 	}
