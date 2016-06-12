@@ -8,18 +8,20 @@ public class TestRope : MonoBehaviour {
 	string layerName="Front";
 	public GameObject admiration;
 	public GameObject rope;
+	GameObject thePlayer;
 
 	PlayerController objPlayer;
 
 	void Start () {
 		HideAdmiration ();
-		GameObject thePlayer = GameObject.Find("Player");
+		thePlayer = GameObject.Find("Player");
 		objPlayer = thePlayer.GetComponent<PlayerController>();
 	}
 
 	void Update () {
 		transform.Rotate(Quaternion.Euler(60, 0, 0) * Vector3.left, -240 * Time.deltaTime*speed);
 		CheckRopePosition ();
+		CheckPlayerJumps ();
 	}
 
 	void CheckRopePosition()
@@ -32,6 +34,21 @@ public class TestRope : MonoBehaviour {
 			HideAdmiration ();
 		}
 	
+	}
+
+	void CheckPlayerJumps()
+	{
+		int jumps = objPlayer.jumps;
+
+		if (jumps % 5==0) {
+			IncreaseSpeed ();
+		}
+			
+	}
+
+	void IncreaseSpeed()
+	{
+		speed += 0.001f;
 	}
 
 	void ChangeLayer()
