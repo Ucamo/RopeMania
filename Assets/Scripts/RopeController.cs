@@ -10,7 +10,10 @@ public class RopeController : MonoBehaviour {
 	public float jumpInterval;
 	public float changeLayerInterval;
 
+	public GameObject admiration;
+
 	void Start () {
+		
 		InvokeRepeating("HandleRopeMovement", 0.5f, jumpInterval);
 		InvokeRepeating("ChangeLayer", 0.5f, changeLayerInterval);
 
@@ -30,12 +33,13 @@ public class RopeController : MonoBehaviour {
 			ropes.GetComponent<Rigidbody2D> ().gravityScale = gravity;
 
 		}
+		HideAdmiration();
 				
 	}
 
 	void ChangeLayer()
 	{
-		
+		ShowAdmiration();
 		if (layerName == "Front")
 			layerName = "Back";
 		else
@@ -51,9 +55,21 @@ public class RopeController : MonoBehaviour {
 				sprite.sortingOrder = 1;
 				sprite.sortingLayerName = layerName;
 			}
+	
 				
 		}
 
+	}
+
+	void ShowAdmiration()
+	{
+		admiration.SetActive (true);
+
+	}
+
+	void HideAdmiration()
+	{
+		admiration.SetActive (false);
 	}
 
 
