@@ -7,13 +7,23 @@ public class TestRope : MonoBehaviour {
 	public float speed;
 	string layerName="Front";
 	public GameObject admiration;
+	public GameObject leftFasterIcon;
+	public GameObject rightFaterIcon;
+
 	public GameObject rope;
 	GameObject thePlayer;
 
 	PlayerController objPlayer;
+	int oldJump=0;
+	int newJump=1;
+	float speedIncreaseFacor=0.05f;
+	int increaseRate=5;
+
+
 
 	void Start () {
 		HideAdmiration ();
+		HideFasterIcons ();
 		thePlayer = GameObject.Find("Player");
 		objPlayer = thePlayer.GetComponent<PlayerController>();
 	}
@@ -32,6 +42,7 @@ public class TestRope : MonoBehaviour {
 		} 
 		else {
 			HideAdmiration ();
+			HideFasterIcons ();
 		}
 	
 	}
@@ -40,15 +51,27 @@ public class TestRope : MonoBehaviour {
 	{
 		int jumps = objPlayer.jumps;
 
-		if (jumps % 5==0) {
-			IncreaseSpeed ();
+		if (jumps % increaseRate==0) {
+			newJump = jumps;
+			if(newJump!=oldJump)
+				IncreaseSpeed ();
+		}
+
+		if (jumps % 20 == 0) {
+			speedIncreaseFacor = 0.08f;
+		}
+
+		if (jumps % 50 == 0) {
+			speedIncreaseFacor = 0.13f;
 		}
 			
 	}
 
 	void IncreaseSpeed()
 	{
-		speed += 0.001f;
+		speed += speedIncreaseFacor;
+		oldJump = newJump;
+		ShowFasterIcons ();
 	}
 
 	void ChangeLayer()
@@ -82,5 +105,17 @@ public class TestRope : MonoBehaviour {
 	void HideAdmiration()
 	{
 		admiration.SetActive (false);
+	}
+
+	void ShowFasterIcons()
+	{
+		leftFasterIcon.SetActive (true);
+		rightFaterIcon.SetActive (true);
+	}
+
+	void HideFasterIcons()
+	{
+		leftFasterIcon.SetActive (false);
+		rightFaterIcon.SetActive (false);
 	}
 }
