@@ -9,8 +9,12 @@ public class TestRope : MonoBehaviour {
 	public GameObject admiration;
 	public GameObject rope;
 
+	PlayerController objPlayer;
+
 	void Start () {
-		
+		HideAdmiration ();
+		GameObject thePlayer = GameObject.Find("Player");
+		objPlayer = thePlayer.GetComponent<PlayerController>();
 	}
 
 	void Update () {
@@ -20,18 +24,14 @@ public class TestRope : MonoBehaviour {
 
 	void CheckRopePosition()
 	{
-		Quaternion rotation = rope.transform.rotation;
-		if (rotation.y == 0) {
-			if (rotation.x >= 0 &&rotation.x<=30) {
+		if (rope.transform.eulerAngles.x<=90 && rope.transform.eulerAngles.x>=30) {
+			if(!objPlayer.getGameOver())
 				ShowAdmiration ();
-			} 
-			else {
-				HideAdmiration ();
-			}
-		}
+		} 
 		else {
 			HideAdmiration ();
 		}
+	
 	}
 
 	void ChangeLayer()

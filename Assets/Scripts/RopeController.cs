@@ -64,7 +64,6 @@ public class RopeController : MonoBehaviour {
 	void ShowAdmiration()
 	{
 		admiration.SetActive (true);
-
 	}
 
 	void HideAdmiration()
