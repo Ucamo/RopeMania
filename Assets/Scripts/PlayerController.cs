@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour {
 
 	public GameObject playerPrefab;
 
+	public Sprite jumpSprite;
+	public Sprite idleSprite;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -39,6 +42,17 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	void SwitchIdleAnimation()
+	{
+		
+		playerPrefab.GetComponent<SpriteRenderer> ().sprite =idleSprite;
+	}
+
+	void SwitchJumpAnimation()
+	{
+		playerPrefab.GetComponent<SpriteRenderer> ().sprite = jumpSprite;
+	}
+
 	//Handle ground contact
 	void OnCollisionEnter2D(Collision2D coll)
 	{
@@ -46,6 +60,7 @@ public class PlayerController : MonoBehaviour {
 		if (coll.gameObject.tag == "Ground")
 		{
 			grounded = true;
+			SwitchIdleAnimation ();
 		}
 
 
@@ -75,6 +90,7 @@ public class PlayerController : MonoBehaviour {
 	void Jump()
 	{
 		if (grounded && !gameOver) {
+			SwitchJumpAnimation ();
 			GetComponent<Rigidbody2D> ().velocity = new Vector2(GetComponent<Rigidbody2D> ().velocity.x, 0);
 			GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpForce));
 			candoublejump = true;
