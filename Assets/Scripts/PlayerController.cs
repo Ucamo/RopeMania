@@ -8,8 +8,10 @@ public class PlayerController : MonoBehaviour {
 	public bool candoublejump;
 
 	public int jumps;
+	public int highScore;
 	public Font pixelFont;
 	string scoreText;
+	string highScoreText;
 
 	bool gameOver=false;
 
@@ -20,13 +22,23 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		highScore=PlayerPrefs.GetInt("highScore", highScore);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		HandleInput ();
 		HandleJumpsText ();
+		HandleScores ();
+	}
+
+	void HandleScores()
+	{
+		if (jumps > highScore) {
+			highScore = jumps;
+			PlayerPrefs.SetInt ("highScore", highScore);
+		}
+
 	}
 
 	void HandleInput()
@@ -105,7 +117,9 @@ public class PlayerController : MonoBehaviour {
 	public void HandleJumpsText()
 	{
 		scoreText = "Jumps : " + jumps;
+		highScoreText = "High Score : " + highScore;
 	}
+		
 
 	void OnGUI()
 	{
@@ -124,6 +138,13 @@ public class PlayerController : MonoBehaviour {
 			style,
 			Color.black,
 			Color.green,
+			0.9f);
+
+		AdvancedTextRendering.DrawOutline(new Rect(0,40,100,100), 
+			highScoreText, 
+			style,
+			Color.black,
+			Color.white,
 			0.9f);
 
 		if (gameOver) {
