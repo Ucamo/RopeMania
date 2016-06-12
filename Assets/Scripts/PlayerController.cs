@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour {
 
 	public void HandleJumpsText()
 	{
-		scoreText = "Jumps: " + jumps;
+		scoreText = "Jumps : " + jumps;
 	}
 
 	void OnGUI()
@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour {
 
 		GUIStyle style = new GUIStyle();
 		style.normal.textColor = Color.red;
-		style.fontSize = 30;
+		style.fontSize = 40;
 		style.fontStyle = FontStyle.Bold;
 
 		GUI.skin.font = pixelFont;
@@ -120,9 +120,10 @@ public class PlayerController : MonoBehaviour {
 		GUI.Label(new Rect(20, 20, 100, 100), scoreText, style);
 
 		if (gameOver) {
-			style.normal.textColor = Color.red;
-			Rect rect = new Rect((Screen.width)/2-70, (Screen.height)/2-50, 0, 0);
-			GUI.Label(rect, "Game Over",style);
+			style.fontSize = 60;
+			style.normal.textColor = Color.cyan;
+			Rect rect = new Rect((Screen.width)/2-150, (Screen.height)/2-50, 0, 0);
+			GUI.Label(rect, "Try again",style);
 		}
 	}
 }
