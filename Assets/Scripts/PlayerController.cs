@@ -117,19 +117,58 @@ public class PlayerController : MonoBehaviour {
 
 		GUI.skin.font = pixelFont;
 		style.normal.textColor = Color.green;
-		GUI.Label(new Rect(20, 20, 100, 100), scoreText, style);
+		//GUI.Label(new Rect(20, 20, 100, 100), scoreText, style);
+
+		AdvancedTextRendering.DrawOutline(new Rect(0,0,100,100), 
+			scoreText, 
+			style,
+			Color.black,
+			Color.green,
+			0.9f);
 
 		if (gameOver) {
 			style.fontSize = 60;
 			style.normal.textColor = Color.cyan;
 			Rect rect = new Rect((Screen.width)/2-150, (Screen.height)/2-50, 0, 0);
-			GUI.Label(rect, "Try again",style);
+			//GUI.Label(rect, "Try again",style);
+			AdvancedTextRendering.DrawOutline(rect, 
+				"Try again", 
+				style,
+				Color.black,
+				Color.cyan,
+				0.9f);
 		}
 	}
 
 	public bool getGameOver()
 	{
 		return gameOver;
+	}
+
+	public class AdvancedTextRendering{
+
+		//draw text of a specified color, with a specified outline color
+		public static void DrawOutline(Rect position ,string text, GUIStyle style, Color outColor, Color inColor, float strokeSize){
+			GUIStyle backupStyle = style;
+			var oldColor = style.normal.textColor;
+
+			style.normal.textColor = outColor;
+			position.x -= strokeSize;
+			GUI.Label(position, text, style);
+			position.x += strokeSize*2;
+			GUI.Label(position, text, style);
+			position.x -= strokeSize;
+			position.y -= strokeSize;
+			GUI.Label(position, text, style);
+			position.y += strokeSize*2;
+			GUI.Label(position, text, style);
+			position.y -= strokeSize;
+			style.normal.textColor = inColor;
+			GUI.Label(position, text, style);
+
+			style.normal.textColor = oldColor;
+			style = backupStyle;
+		}
 	}
 
 
