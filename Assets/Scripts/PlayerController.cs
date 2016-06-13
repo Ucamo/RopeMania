@@ -20,9 +20,19 @@ public class PlayerController : MonoBehaviour {
 	public Sprite jumpSprite;
 	public Sprite idleSprite;
 
+	private AudioSource audioSource;
+	public AudioClip jumpSound;
+	public float volume;
+
+
 	// Use this for initialization
 	void Start () {
 		highScore=PlayerPrefs.GetInt("highScore", highScore);
+	}
+
+	void Awake()
+	{
+		audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -108,6 +118,7 @@ public class PlayerController : MonoBehaviour {
 			candoublejump = true;
 			grounded = false;
 			jumps++;
+			PlayJumpSound ();
 		}
 		if (gameOver) {
 			RestartGame ();
@@ -166,6 +177,11 @@ public class PlayerController : MonoBehaviour {
 		return gameOver;
 	}
 
+	void PlayJumpSound()
+	{
+		audioSource.PlayOneShot(jumpSound, volume);
+	}
+
 	public class AdvancedTextRendering{
 
 		//draw text of a specified color, with a specified outline color
@@ -191,6 +207,8 @@ public class PlayerController : MonoBehaviour {
 			style = backupStyle;
 		}
 	}
+
+
 
 
 }
