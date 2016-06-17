@@ -19,7 +19,14 @@ public class TestRope : MonoBehaviour {
 	float speedIncreaseFacor=0.05f;
 	int increaseRate=5;
 
+	private AudioSource audioSource;
+	public AudioClip powerSound;
+	public float volume;
 
+	void Awake()
+	{
+		audioSource = GetComponent<AudioSource>();
+	}
 
 	void Start () {
 		HideAdmiration ();
@@ -111,11 +118,17 @@ public class TestRope : MonoBehaviour {
 	{
 		leftFasterIcon.SetActive (true);
 		rightFaterIcon.SetActive (true);
+		PlayPowerUpSound ();
 	}
 
 	void HideFasterIcons()
 	{
 		leftFasterIcon.SetActive (false);
 		rightFaterIcon.SetActive (false);
+	}
+
+	void PlayPowerUpSound()
+	{
+		audioSource.PlayOneShot(powerSound, volume);
 	}
 }

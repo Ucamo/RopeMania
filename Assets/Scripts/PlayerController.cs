@@ -22,11 +22,14 @@ public class PlayerController : MonoBehaviour {
 
 	private AudioSource audioSource;
 	public AudioClip jumpSound;
+	public AudioClip hitSound;
+	public AudioClip startSound;
 	public float volume;
 
 
 	// Use this for initialization
 	void Start () {
+		PlayStartSound ();
 		highScore=PlayerPrefs.GetInt("highScore", highScore);
 	}
 
@@ -97,6 +100,7 @@ public class PlayerController : MonoBehaviour {
 				if (layer == "Front") {
 					gameOver = true;
 					playerPrefab.transform.Rotate (Vector3.forward * -90);
+					PlayHitSound ();
 				}
 			}
 		}
@@ -180,6 +184,16 @@ public class PlayerController : MonoBehaviour {
 	void PlayJumpSound()
 	{
 		audioSource.PlayOneShot(jumpSound, volume);
+	}
+
+	void PlayHitSound()
+	{
+		audioSource.PlayOneShot(hitSound, volume/4);
+	}
+
+	void PlayStartSound()
+	{
+		audioSource.PlayOneShot(startSound, volume/4);
 	}
 
 	public class AdvancedTextRendering{
