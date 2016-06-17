@@ -181,6 +181,16 @@ public class PlayerController : MonoBehaviour {
 		return gameOver;
 	}
 
+	public int getScore()
+	{
+		return jumps;
+	}
+
+	public int getHighScore()
+	{
+		return highScore;
+	}
+
 	void PlayJumpSound()
 	{
 		audioSource.PlayOneShot(jumpSound, volume);

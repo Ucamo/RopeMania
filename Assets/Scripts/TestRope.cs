@@ -56,7 +56,7 @@ public class TestRope : MonoBehaviour {
 
 	void CheckPlayerJumps()
 	{
-		int jumps = objPlayer.jumps;
+		int jumps = objPlayer.getScore();
 
 		if (jumps % increaseRate==0) {
 			newJump = jumps;
