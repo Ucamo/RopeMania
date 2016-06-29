@@ -26,11 +26,17 @@ public class PlayerController : MonoBehaviour {
 	public AudioClip startSound;
 	public float volume;
 
+	GameObject theRope;
+
+	TestRope objRope;
+
 
 	// Use this for initialization
 	void Start () {
 		PlayStartSound ();
 		highScore=PlayerPrefs.GetInt("highScore", highScore);
+		theRope = GameObject.Find("Rope_Pixel");
+		objRope = theRope.GetComponent<TestRope>();
 	}
 
 	void Awake()
@@ -120,7 +126,8 @@ public class PlayerController : MonoBehaviour {
 			GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpForce));
 			candoublejump = true;
 			grounded = false;
-			jumps++;
+			if(objRope.getTimeToJump())
+				jumps++;
 			PlayJumpSound ();
 		}
 		if (gameOver) {

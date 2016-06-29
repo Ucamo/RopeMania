@@ -23,6 +23,8 @@ public class TestRope : MonoBehaviour {
 	public AudioClip powerSound;
 	public float volume;
 
+	bool timeToJump;
+
 	void Awake()
 	{
 		audioSource = GetComponent<AudioSource>();
@@ -64,7 +66,7 @@ public class TestRope : MonoBehaviour {
 			//back
 			//Color the rope darker
 			SpriteRenderer renderer = rope.GetComponent<SpriteRenderer>();
-			renderer.color = new Color32(173, 173, 173,255);
+			renderer.color = new Color32(150, 150, 150,255);
 			ChangeLayer ("Back");
 
 		}
@@ -119,11 +121,18 @@ public class TestRope : MonoBehaviour {
 	void ShowAdmiration()
 	{
 		admiration.SetActive (true);
+		timeToJump = true;
+	}
+
+	public bool getTimeToJump()
+	{
+		return timeToJump;
 	}
 
 	void HideAdmiration()
 	{
 		admiration.SetActive (false);
+		timeToJump = false;
 	}
 
 	void ShowFasterIcons()
