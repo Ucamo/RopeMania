@@ -36,7 +36,8 @@ public class TestRope : MonoBehaviour {
 	}
 
 	void Update () {
-		transform.Rotate(Quaternion.Euler(60, 0, 0) * Vector3.left, -240 * Time.deltaTime*speed);
+		if(!objPlayer.getGameOver())
+			transform.Rotate(Quaternion.Euler(60, 0, 0) * Vector3.left, -240 * Time.deltaTime*speed);
 		CheckRopePosition ();
 		CheckPlayerJumps ();
 	}
@@ -50,6 +51,22 @@ public class TestRope : MonoBehaviour {
 		else {
 			HideAdmiration ();
 			HideFasterIcons ();
+		}
+
+		//Change color depending on rope position
+		if (rope.transform.eulerAngles.x <= 170 && rope.transform.eulerAngles.x >= 0) {
+			//front
+			//Color white
+			SpriteRenderer renderer = rope.GetComponent<SpriteRenderer>();
+			renderer.color = new Color32(255, 255, 255,255);
+			ChangeLayer ("Front");
+		} else {
+			//back
+			//Color the rope darker
+			SpriteRenderer renderer = rope.GetComponent<SpriteRenderer>();
+			renderer.color = new Color32(173, 173, 173,255);
+			ChangeLayer ("Back");
+
 		}
 	
 	}
@@ -81,12 +98,9 @@ public class TestRope : MonoBehaviour {
 		ShowFasterIcons ();
 	}
 
-	void ChangeLayer()
+	void ChangeLayer(string val)
 	{
-		if (layerName == "Front")
-			layerName = "Back";
-		else
-			layerName="Front";
+		layerName = val;
 
 		GameObject[] movingRopes = GameObject.FindGameObjectsWithTag("MovingRope");
 		foreach (GameObject ropes in movingRopes) {
@@ -98,8 +112,6 @@ public class TestRope : MonoBehaviour {
 				sprite.sortingOrder = 1;
 				sprite.sortingLayerName = layerName;
 			}
-
-
 		}
 
 	}

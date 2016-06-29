@@ -69,7 +69,6 @@ public class PlayerController : MonoBehaviour {
 
 	void SwitchIdleAnimation()
 	{
-		
 		playerPrefab.GetComponent<SpriteRenderer> ().sprite =idleSprite;
 	}
 
