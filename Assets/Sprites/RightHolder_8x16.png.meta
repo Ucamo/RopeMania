@@ -1,11 +1,16 @@
 fileFormatVersion: 2
-guid: 71d6361faf54c4728bfe8ade0d48fc3f
-timeCreated: 1465704337
+guid: 1ace6538753924adab6b8403c0219a28
+timeCreated: 1468132496
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Right_Holder_Up
-    21300002: Right_Holder_Down
+    21300000: RightHolder_8x16_0
+    21300002: RightHolder_8x16_1
+    21300004: RightHolder_Walk_1
+    21300006: RightHolder_Walk_2
+    21300008: RightHolder_Walk_3
+    21300010: RightHolder_Walk_4
+    21300012: RightHolder_Walk_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -52,7 +57,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Right_Holder_Up
+    - name: RightHolder_8x16_0
       rect:
         serializedVersion: 2
         x: 0
@@ -60,13 +65,68 @@ TextureImporter:
         width: 8
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Right_Holder_Down
+    - name: RightHolder_8x16_1
       rect:
         serializedVersion: 2
         x: 8
+        y: 0
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: RightHolder_Walk_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: RightHolder_Walk_2
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: RightHolder_Walk_3
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: RightHolder_Walk_4
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 0
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: RightHolder_Walk_5
+      rect:
+        serializedVersion: 2
+        x: 48
         y: 0
         width: 8
         height: 16
