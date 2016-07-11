@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		//Contact with row
+		//Contact with rope
 		if (!gameOver) {
 			if (other.gameObject.tag == "MovingRope" && grounded==true) {
 				string layer =other.GetComponent<SpriteRenderer>().sortingLayerName;
