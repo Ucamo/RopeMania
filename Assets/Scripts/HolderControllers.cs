@@ -11,7 +11,7 @@ public class HolderControllers : MonoBehaviour {
 	public Sprite idleSpritePlayer;
 	public Sprite idleSpriteLeftHolder;
 	public Sprite idleSpriteRightHolder;
-
+	public Font pixelFont;
 
 	bool center;
 	bool arrive;
@@ -20,12 +20,20 @@ public class HolderControllers : MonoBehaviour {
 	Vector3 startPlayer;
 	Vector3 centerPosition = new Vector3(0f,-2.8f);
 
+	Vector3 positionLeft ;
+	Vector3 positionRight ;
+	Vector3 positionPlayer ;
+
+	string start="";
+	string ropemania="";
 
 	void Start () {
 		startLeft = leftHolder.transform.position;
 		startRight = rightHolder.transform.position;
 		startPlayer = player.transform.position;
 		HideFasterIcons ();
+		start = "Start";
+		ropemania = "Ropemania";
 	}
 
 	void Update () {
@@ -34,9 +42,9 @@ public class HolderControllers : MonoBehaviour {
 
 	void HandleMovement()
 	{
-		Vector3 positionLeft = leftHolder.transform.position;
-		Vector3 positionRight = rightHolder.transform.position;
-		Vector3 positionPlayer = player.transform.position;
+		 positionLeft = leftHolder.transform.position;
+		 positionRight = rightHolder.transform.position;
+		 positionPlayer = player.transform.position;
 		float speed = Time.deltaTime;
 
 
@@ -45,7 +53,7 @@ public class HolderControllers : MonoBehaviour {
 			rightHolder.transform.position = Vector3.MoveTowards (rightHolder.transform.position, leftHolder.transform.position, speed);
 		}
 		if (positionLeft == centerPosition) {
-			center = true;				
+			center = true;	
 		}
 
 		if (rightHolder.GetComponent<Rigidbody2D> ().IsTouching(leftHolder.GetComponent<Collider2D> ())) {
@@ -96,6 +104,15 @@ public class HolderControllers : MonoBehaviour {
 		}
 	}
 
+	public Vector3 getPositionL()
+	{
+		return positionLeft;
+	}
+	public Vector3 getPositionR()
+	{
+		return positionRight;
+	}
+
 	void SwitchIdleLeft()
 	{
 		leftHolder.GetComponent<Animator> ().Stop ();
@@ -124,4 +141,52 @@ public class HolderControllers : MonoBehaviour {
 		leftFasterIcon.SetActive (false);
 		rightFaterIcon.SetActive (false);
 	}
+
+	void OnGUI()
+	{
+
+		GUIStyle style = new GUIStyle();
+		style.normal.textColor = Color.red;
+		style.fontSize = 40;
+		style.fontStyle = FontStyle.Bold;
+
+		GUI.skin.font = pixelFont;
+		style.normal.textColor = Color.green;
+		//GUI.Label(new Rect(20, 20, 100, 100), scoreText, style);
+
+		float w = 100;
+		float h = 100;
+		Rect rect = new Rect((Screen.width-w)/2, (Screen.height-h)/2+50, w, h);
+
+
+		AdvancedTextRendering.DrawOutline(rect, 
+			start, 
+			style,
+			Color.black,
+			Color.green,
+			0.9f);
+
+		style = new GUIStyle();
+		style.normal.textColor = Color.red;
+		style.fontSize = 80;
+		style.fontStyle = FontStyle.Bold;
+
+		Rect rect2 = new Rect((Screen.width-w)/3, (Screen.height-h)/2-100, w, h);
+
+		if( GUI.Button(rect2,ropemania,style ) )
+		{
+			Debug.Log("You clicked my label!");
+		}
+
+		AdvancedTextRendering.DrawOutline(rect2, 
+			ropemania, 
+			style,
+			Color.white,
+			Color.red,
+			2f);
+
+	
+	}
+
+
 }
