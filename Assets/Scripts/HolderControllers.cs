@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class HolderControllers : MonoBehaviour {
 
@@ -171,12 +172,17 @@ public class HolderControllers : MonoBehaviour {
 		style.fontSize = 80;
 		style.fontStyle = FontStyle.Bold;
 
-		Rect rect2 = new Rect((Screen.width-w)/4, (Screen.height-h)/2-100, w, h);
+		Rect rect2 = new Rect((Screen.width-w)/4, (Screen.height-h)/2-100, (Screen.width/2)+100	, h);
+	
+		Color c = GUI.backgroundColor;
+		GUI.backgroundColor = Color.clear;
 
-		if( GUI.Button(rect2,ropemania,style ) )
+		if( GUI.Button(rect2,""))
 		{
-			Debug.Log("You clicked my label!");
+			Debug.Log("Logo clicked");
 		}
+
+		GUI.backgroundColor = c;
 
 		AdvancedTextRendering.DrawOutline(rect2, 
 			ropemania, 
@@ -187,6 +193,7 @@ public class HolderControllers : MonoBehaviour {
 
 	
 	}
+		
 
 
 }
