@@ -171,7 +171,7 @@ public class HolderControllers : MonoBehaviour {
 		style.fontSize = 80;
 		style.fontStyle = FontStyle.Bold;
 
-		Rect rect2 = new Rect((Screen.width-w)/3, (Screen.height-h)/2-100, w, h);
+		Rect rect2 = new Rect((Screen.width-w)/4, (Screen.height-h)/2-100, w, h);
 
 		if( GUI.Button(rect2,ropemania,style ) )
 		{
