@@ -157,7 +157,7 @@ public class HolderControllers : MonoBehaviour {
 
 		float w = 100;
 		float h = 100;
-		Rect rect = new Rect((Screen.width-w)/2, (Screen.height-h)/2+50, w, h);
+		Rect rect = new Rect((Screen.width-w)/2, (Screen.height-h)/2+50, w+50, h/2);
 
 
 		AdvancedTextRendering.DrawOutline(rect, 
@@ -177,9 +177,9 @@ public class HolderControllers : MonoBehaviour {
 		Color c = GUI.backgroundColor;
 		GUI.backgroundColor = Color.clear;
 
-		if( GUI.Button(rect2,""))
+		if( GUI.Button(rect,""))
 		{
-			Debug.Log("Logo clicked");
+			Application.LoadLevel("level1");
 		}
 
 		GUI.backgroundColor = c;
