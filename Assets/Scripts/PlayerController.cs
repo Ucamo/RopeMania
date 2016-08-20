@@ -29,19 +29,70 @@ public class PlayerController : MonoBehaviour {
 	GameObject theRope;
 
 	TestRope objRope;
+	bool paused=false;
 
 
 	// Use this for initialization
 	void Start () {
-		PlayStartSound ();
 		highScore=PlayerPrefs.GetInt("highScore", highScore);
 		theRope = GameObject.Find("Rope_Pixel");
 		objRope = theRope.GetComponent<TestRope>();
+		StartWait ();
+	}
+
+	void StartWait(){
+		StopTime ();
+		print ("started");
+		StartCoroutine(MyCoroutine());
+	}
+
+	void StartGame()
+	{
+		PlayStartSound ();
+	}
+
+	void StopTime()
+	{
+		if (!paused) {
+			Time.timeScale = 0.00001f;
+			paused = true;
+		}
+
+	}
+
+	void ResumeTime()
+	{
+		if (paused) {
+			Time.timeScale = 1;
+			paused = false;
+		}
 	}
 
 	void Awake()
 	{
 		audioSource = GetComponent<AudioSource>();
+	}
+
+	IEnumerator MyCoroutine(){
+
+		int countUpTo = 5;
+		float waitTime = 1;
+
+		for (int i=0; i <= countUpTo; i++) {
+			//Pause here
+			yield return new WaitForSeconds(waitTime*0.00001f);
+
+			print (i);
+		}
+		print ("Finished");
+		ResumeTime ();
+	}
+
+	IEnumerator CreaIEspera()
+	{
+		yield return new WaitForSeconds(0.00002f);
+		print ("se espero 2 segundo");
+		ResumeTime ();
 	}
 	
 	// Update is called once per frame
@@ -62,14 +113,15 @@ public class PlayerController : MonoBehaviour {
 
 	void HandleInput()
 	{
-		
-		if (Input.GetMouseButtonDown(0))
-		{
-			Jump();
-		}
+		if (!paused) {
+			if (Input.GetMouseButtonDown(0))
+			{
+				Jump();
+			}
 
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			Jump ();
+			if (Input.GetKeyDown(KeyCode.Space)) {
+				Jump ();
+			}
 		}
 	}
 
