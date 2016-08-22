@@ -88,8 +88,6 @@ public class PlayerController : MonoBehaviour {
 			PlayStartSound();
 			SwitchCounterAnimation (countUpTo - i);
 			yield return new WaitForSeconds(waitTime*0.00001f);
-
-			print (i);
 		}
 		ResumeTime ();
 		HideCounter ();
@@ -109,6 +107,11 @@ public class PlayerController : MonoBehaviour {
 			PlayerPrefs.SetInt ("highScore", highScore);
 		}
 
+	}
+
+	public int getScore()
+	{
+		return jumps;
 	}
 
 	void ShowCounter ()
