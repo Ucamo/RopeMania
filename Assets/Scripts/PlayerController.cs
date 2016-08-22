@@ -47,9 +47,8 @@ public class PlayerController : MonoBehaviour {
 
 	void StartWait(){
 		StopTime ();
-		print ("started");
 		ShowCounter ();
-		StartCoroutine(MyCoroutine());
+		StartCoroutine(WaitToStart());
 	}
 
 	void StartGame()
@@ -79,7 +78,7 @@ public class PlayerController : MonoBehaviour {
 		audioSource = GetComponent<AudioSource>();
 	}
 
-	IEnumerator MyCoroutine(){
+	IEnumerator WaitToStart(){
 
 		int countUpTo = 3;
 		float waitTime = 1;
@@ -92,18 +91,10 @@ public class PlayerController : MonoBehaviour {
 
 			print (i);
 		}
-		print ("Finished");
 		ResumeTime ();
 		HideCounter ();
 	}
-
-	IEnumerator CreaIEspera()
-	{
-		yield return new WaitForSeconds(0.00002f);
-		print ("se espero 2 segundo");
-		ResumeTime ();
-	}
-	
+		
 	// Update is called once per frame
 	void Update () {
 		HandleInput ();
@@ -241,14 +232,14 @@ public class PlayerController : MonoBehaviour {
 		style.normal.textColor = Color.green;
 		//GUI.Label(new Rect(20, 20, 100, 100), scoreText, style);
 
-		AdvancedTextRendering.DrawOutline(new Rect(0,0,100,100), 
+		AdvancedTextRendering.DrawOutline(new Rect(0,40,100,100), 
 			scoreText, 
 			style,
 			Color.black,
 			Color.green,
 			0.9f);
 
-		AdvancedTextRendering.DrawOutline(new Rect(0,40,100,100), 
+		AdvancedTextRendering.DrawOutline(new Rect(0,80,100,100), 
 			highScoreText, 
 			style,
 			Color.black,
