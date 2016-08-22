@@ -16,9 +16,14 @@ public class PlayerController : MonoBehaviour {
 	bool gameOver=false;
 
 	public GameObject playerPrefab;
+	public GameObject counter;
 
 	public Sprite jumpSprite;
 	public Sprite idleSprite;
+
+	public Sprite counter1;
+	public Sprite counter2;
+	public Sprite counter3;
 
 	private AudioSource audioSource;
 	public AudioClip jumpSound;
@@ -43,6 +48,7 @@ public class PlayerController : MonoBehaviour {
 	void StartWait(){
 		StopTime ();
 		print ("started");
+		ShowCounter ();
 		StartCoroutine(MyCoroutine());
 	}
 
@@ -75,17 +81,20 @@ public class PlayerController : MonoBehaviour {
 
 	IEnumerator MyCoroutine(){
 
-		int countUpTo = 5;
+		int countUpTo = 3;
 		float waitTime = 1;
 
-		for (int i=0; i <= countUpTo; i++) {
+		for (int i=0; i < countUpTo; i++) {
 			//Pause here
+			PlayStartSound();
+			SwitchCounterAnimation (countUpTo - i);
 			yield return new WaitForSeconds(waitTime*0.00001f);
 
 			print (i);
 		}
 		print ("Finished");
 		ResumeTime ();
+		HideCounter ();
 	}
 
 	IEnumerator CreaIEspera()
@@ -111,6 +120,16 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
+	void ShowCounter ()
+	{
+		counter.SetActive (true);
+	}
+
+	void HideCounter()
+	{
+		counter.SetActive (false);
+	}
+
 	void HandleInput()
 	{
 		if (!paused) {
@@ -122,6 +141,24 @@ public class PlayerController : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.Space)) {
 				Jump ();
 			}
+		}
+	}
+
+	void SwitchCounterAnimation(int number)
+	{
+		switch (number) {
+		case 1:
+			counter.GetComponent<SpriteRenderer> ().sprite = counter1;
+			break;
+		case 2:
+			counter.GetComponent<SpriteRenderer> ().sprite = counter2;
+			break;
+		case 3:
+			counter.GetComponent<SpriteRenderer> ().sprite = counter3;
+			break;
+		default:
+			HideCounter ();
+			break;
 		}
 	}
 
@@ -144,8 +181,6 @@ public class PlayerController : MonoBehaviour {
 			grounded = true;
 			SwitchIdleAnimation ();
 		}
-
-
 	}
 
 	void OnTriggerEnter2D(Collider2D other)
