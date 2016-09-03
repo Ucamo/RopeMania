@@ -66,7 +66,7 @@ public class TestRope : MonoBehaviour {
 			//back
 			//Color the rope darker
 			SpriteRenderer renderer = rope.GetComponent<SpriteRenderer>();
-			renderer.color = new Color32(150, 150, 150,255);
+			renderer.color = new Color32(212, 153, 0,255);
 			ChangeLayer ("Back");
 
 		}
