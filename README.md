@@ -5,4 +5,4 @@ Unity Jump the rope game project
 
 Trello Board:
 
-https://trello.com/b/p1a6rnBM/ropemania
+https://trello.com/b/p1a6rnBM
