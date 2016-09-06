@@ -17,19 +17,13 @@ public class CarSpawner : MonoBehaviour {
 	
 	}
 
-
-
 	void InstanceCar()
 	{
 		int modifier = spawnToLeft ? -1 : 1;
 		Vector2 forceVector = spawnToLeft ? Vector2.left : Vector2.right;
-
 		Vector3 firePosition = new Vector3(transform.position.x + (1.5f * modifier), transform.position.y - 0.75f, 0);
 		int index = Random.Range (0, cars.Length-1);
 		GameObject randomCar = cars [index];
-
-
-
 		GameObject bPrefab = Instantiate(randomCar, firePosition, Quaternion.identity) as GameObject;
 		if (!spawnToLeft) {
 			bPrefab.GetComponent<SpriteRenderer> ().flipX = true;
