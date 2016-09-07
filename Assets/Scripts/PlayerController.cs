@@ -221,6 +221,11 @@ public class PlayerController : MonoBehaviour {
 		scoreText = "Jumps : " + jumps;
 		highScoreText = "High Score : " + highScore;
 	}
+
+	public Vector3 getPlayerPosition()
+	{
+		return transform.position;
+	}
 		
 
 	void OnGUI()

@@ -8,9 +8,14 @@ public class DogSpawner : MonoBehaviour {
 	public float speed;
 	float respawnTime;
 	public float startTime;
+	GameObject thePlayer;
+	PlayerController objPlayer;
+
 	void Start () {
 		respawnTime = Random.Range (1, 5);
 		InvokeRepeating("InstanceDog", startTime, respawnTime);
+		thePlayer = GameObject.Find("Player");
+		objPlayer = thePlayer.GetComponent<PlayerController>();
 	}
 		
 	void Update () {
@@ -19,7 +24,17 @@ public class DogSpawner : MonoBehaviour {
 
 	void InstanceDog()
 	{
-		
+		if (!objPlayer.getGameOver ()) {
+			GameObject[] dogs = GameObject.FindGameObjectsWithTag("dog");
+			if (dogs.Length == 1) {
+				SpawnDog ();
+			}
+		}
+
+	}
+
+	void SpawnDog()
+	{
 		Vector2 forceVector = spawnToLeft ? Vector2.left : Vector2.right;
 		Vector3 firePosition = new Vector3(transform.position.x, transform.position.y, 0);
 		int index = Random.Range (0, dogs.Length-1);

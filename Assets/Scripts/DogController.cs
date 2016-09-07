@@ -10,14 +10,23 @@ public class DogController : MonoBehaviour {
 	float movementSpeed=3f;
 	Vector3 rightFromPlayer = new Vector3(3f,-2.8f);
 	int jumps = 0;
+	GameObject thePlayer;
+	PlayerController objPlayer;
+
 
 	void Start () {
 		//Dog will jump a random number of times between 1 and 10
 		jumps = Random.Range (1, 11);
+		thePlayer = GameObject.Find("Player");
+		objPlayer = thePlayer.GetComponent<PlayerController>();
+
 	}
 
 	void Update () {
-		HandleMovement ();
+		if (!objPlayer.getGameOver ()) {
+			HandleMovement ();
+		}
+
 	}
 
 	void HandleMovement(){
@@ -28,10 +37,13 @@ public class DogController : MonoBehaviour {
 
 		if (currentPosition == rightFromPlayer) {
 			//Stop walking, start jumping.
-			//SwitchIdle();
+			SwitchIdle();
+			//count how many jumps the dog will jump
 			Jump ();
+
 		}
 	}
+		
 
 	void SwitchIdle()
 	{
@@ -40,9 +52,10 @@ public class DogController : MonoBehaviour {
 	}
 
 	void Jump(){
-		//SwitchJump ();
-		GetComponent<Rigidbody2D> ().velocity = new Vector2(GetComponent<Rigidbody2D> ().velocity.x, 0);
-		GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpForce));
+		SwitchJump ();
+		Vector3 playerPosition=objPlayer.getPlayerPosition();
+		transform.position = new Vector3 (transform.position.x, playerPosition.y);
+
 	}
 
 	void SwitchJump()
@@ -50,5 +63,6 @@ public class DogController : MonoBehaviour {
 		GetComponent<Animator> ().Stop ();
 		GetComponent<SpriteRenderer> ().sprite =jumpDog;
 	}
-
+		
 }
+	
