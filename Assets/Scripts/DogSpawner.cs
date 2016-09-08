@@ -10,6 +10,7 @@ public class DogSpawner : MonoBehaviour {
 	public float startTime;
 	GameObject thePlayer;
 	PlayerController objPlayer;
+	bool thereIsADog=false;
 
 	void Start () {
 		respawnTime = Random.Range (1, 5);
@@ -26,8 +27,10 @@ public class DogSpawner : MonoBehaviour {
 	{
 		if (!objPlayer.getGameOver ()) {
 			GameObject[] dogs = GameObject.FindGameObjectsWithTag("dog");
-			if (dogs.Length == 1) {
-				SpawnDog ();
+			Debug.Log ("Total dogs: " + dogs.Length);
+			if (dogs.Length <= 1) {
+				if(!thereIsADog)
+					SpawnDog ();
 			}
 		}
 
@@ -36,7 +39,7 @@ public class DogSpawner : MonoBehaviour {
 	void SpawnDog()
 	{
 		Vector2 forceVector = spawnToLeft ? Vector2.left : Vector2.right;
-		Vector3 firePosition = new Vector3(transform.position.x, transform.position.y, 0);
+		Vector3 firePosition = new Vector3(transform.position.x, -3.2f, 0);
 		int index = Random.Range (0, dogs.Length-1);
 		GameObject randomDog = dogs [index];
 		GameObject bPrefab = Instantiate(randomDog, firePosition, Quaternion.identity) as GameObject;
@@ -47,5 +50,6 @@ public class DogSpawner : MonoBehaviour {
 			bPrefab.GetComponent<SpriteRenderer> ().sortingOrder =- 0;
 		}
 		bPrefab.GetComponent<Rigidbody2D>().AddForce(forceVector * speed);
+		thereIsADog = true;
 	}
 }

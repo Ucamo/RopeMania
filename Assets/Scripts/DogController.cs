@@ -8,8 +8,8 @@ public class DogController : MonoBehaviour {
 	public float jumpForce;
 
 	float movementSpeed=3f;
-	Vector3 rightFromPlayer = new Vector3(2.5f,-2.8f);
-	Vector3 awayToTheRight = new  Vector3(4f,-2.8f);
+	Vector3 rightFromPlayer = new Vector3(2.5f,-3.2f);
+	Vector3 awayToTheRight = new  Vector3(4f,-3.2f);
 	int jumps = 0;
 	GameObject thePlayer;
 	PlayerController objPlayer;
@@ -23,7 +23,6 @@ public class DogController : MonoBehaviour {
 		jumps = Random.Range (2, 11);
 		thePlayer = GameObject.Find("Player");
 		objPlayer = thePlayer.GetComponent<PlayerController>();
-
 	}
 
 	void Update () {
@@ -48,6 +47,7 @@ public class DogController : MonoBehaviour {
 			//Stop walking, start jumping.
 			SwitchIdle();
 			//count how many jumps the dog will jump
+			Jump ();
 			if (counter < jumps) {
 				Jump ();
 				counter++;
@@ -57,8 +57,9 @@ public class DogController : MonoBehaviour {
 		}
 		if (moveAway) {
 			//GetComponent<Animator> ().Play ("dog_walk_1");
-			transform.position = Vector3.MoveTowards (transform.position, awayToTheRight, time);
+			//transform.position = Vector3.MoveTowards (transform.position, awayToTheRight, time);
 		}
+		ChangeLayer ();
 	}
 		
 
@@ -70,9 +71,20 @@ public class DogController : MonoBehaviour {
 
 	void Jump(){
 		SwitchJump ();
-		Vector3 playerPosition=objPlayer.getPlayerPosition();
-		transform.position = new Vector3 (transform.position.x, playerPosition.y);
 
+		Vector3 playerPosition=objPlayer.getPlayerPosition();
+		float positionY = playerPosition.y - .30f;
+		transform.position = new Vector3 (transform.position.x, positionY);
+	}
+
+	void ChangeLayer()
+	{
+		SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+		if (sprite)
+		{
+			sprite.sortingOrder = 0;
+			sprite.sortingLayerName = "Front";
+		}
 	}
 
 	void SwitchJump()
