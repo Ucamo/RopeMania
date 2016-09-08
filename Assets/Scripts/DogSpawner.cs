@@ -27,7 +27,6 @@ public class DogSpawner : MonoBehaviour {
 	{
 		if (!objPlayer.getGameOver ()) {
 			GameObject[] dogs = GameObject.FindGameObjectsWithTag("dog");
-			Debug.Log ("Total dogs: " + dogs.Length);
 			if (dogs.Length <= 1) {
 				if(!thereIsADog)
 					SpawnDog ();

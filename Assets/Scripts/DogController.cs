@@ -16,6 +16,8 @@ public class DogController : MonoBehaviour {
 	bool isOnRightFromPlayer=false;
 	int counter=0;
 	bool moveAway=false;
+	GameObject theRope;
+	TestRope objRope;
 
 
 	void Start () {
@@ -23,6 +25,8 @@ public class DogController : MonoBehaviour {
 		jumps = Random.Range (2, 11);
 		thePlayer = GameObject.Find("Player");
 		objPlayer = thePlayer.GetComponent<PlayerController>();
+		theRope = GameObject.Find("Rope_Pixel");
+		objRope = theRope.GetComponent<TestRope>();
 	}
 
 	void Update () {
@@ -47,10 +51,10 @@ public class DogController : MonoBehaviour {
 			//Stop walking, start jumping.
 			SwitchIdle();
 			//count how many jumps the dog will jump
-			Jump ();
 			if (counter < jumps) {
-				Jump ();
-				counter++;
+				MimicPlayerHeight ();
+				HandleInput ();
+				//counter++;
 			} else {
 				moveAway = true;
 			}
@@ -61,6 +65,18 @@ public class DogController : MonoBehaviour {
 		}
 		ChangeLayer ();
 	}
+
+	void HandleInput()
+	{
+		if (Input.GetMouseButtonDown(0))
+		{
+			Jump();
+		}
+
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			Jump ();
+		}
+	}
 		
 
 	void SwitchIdle()
@@ -69,12 +85,19 @@ public class DogController : MonoBehaviour {
 		GetComponent<SpriteRenderer> ().sprite =idleDog;
 	}
 
-	void Jump(){
+	void MimicPlayerHeight()
+	{
 		SwitchJump ();
-
 		Vector3 playerPosition=objPlayer.getPlayerPosition();
 		float positionY = playerPosition.y - .30f;
 		transform.position = new Vector3 (transform.position.x, positionY);
+	}
+	void Jump(){
+		if (!objPlayer.isGrounded()) {
+			if (objRope.getTimeToJump ()) {
+				objPlayer.JumpWithDog ();
+			}
+		}
 	}
 
 	void ChangeLayer()

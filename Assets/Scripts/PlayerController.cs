@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour {
 	public float volume;
 
 	GameObject theRope;
-
 	TestRope objRope;
 	bool paused=false;
 
@@ -213,6 +212,22 @@ public class PlayerController : MonoBehaviour {
 		}
 		if (gameOver) {
 			RestartGame ();
+		}
+	}
+
+	public bool isGrounded()
+	{
+		return grounded;
+	}
+
+	public void JumpWithDog()
+	{
+		if (grounded==false && !gameOver) {
+			if (objRope.getTimeToJump ()) {
+				jumps++;
+				PlayJumpSound ();
+			}
+
 		}
 	}
 
