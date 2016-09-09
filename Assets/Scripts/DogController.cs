@@ -71,7 +71,7 @@ public class DogController : MonoBehaviour {
 		if(readyToWalk)
 		{
 			Debug.Log ("readytoWalk");
-			GetComponent<Animator> ().Play("dog_walk");
+			GetComponent<Animator> ().enabled = true;
 			readyToWalk = false;
 		}
 		ChangeLayer ();
@@ -92,7 +92,7 @@ public class DogController : MonoBehaviour {
 
 	void SwitchIdle()
 	{
-		GetComponent<Animator> ().Stop ();
+		GetComponent<Animator> ().enabled = false;
 		GetComponent<SpriteRenderer> ().sprite =idleDog;
 	}
 
@@ -125,7 +125,7 @@ public class DogController : MonoBehaviour {
 
 	void SwitchJump()
 	{
-		GetComponent<Animator> ().Stop ();
+		GetComponent<Animator> ().enabled = false;
 		GetComponent<SpriteRenderer> ().sprite =jumpDog;
 	}
 		
