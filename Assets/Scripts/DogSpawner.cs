@@ -11,9 +11,11 @@ public class DogSpawner : MonoBehaviour {
 	GameObject thePlayer;
 	PlayerController objPlayer;
 	bool thereIsADog=false;
+	int lowestNumber=20;
+	int maxNumber=60;
 
 	void Start () {
-		respawnTime = Random.Range (1, 5);
+		respawnTime = Random.Range (lowestNumber, maxNumber);
 		InvokeRepeating("InstanceDog", startTime, respawnTime);
 		thePlayer = GameObject.Find("Player");
 		objPlayer = thePlayer.GetComponent<PlayerController>();
@@ -33,6 +35,11 @@ public class DogSpawner : MonoBehaviour {
 			}
 		}
 
+	}
+
+	public void setThereIsADog(bool isThere)
+	{
+		thereIsADog = isThere;
 	}
 
 	void SpawnDog()
