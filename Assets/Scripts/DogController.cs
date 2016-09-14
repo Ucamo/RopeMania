@@ -70,7 +70,6 @@ public class DogController : MonoBehaviour {
 		}
 		if(readyToWalk)
 		{
-			Debug.Log ("readytoWalk");
 			GetComponent<Animator> ().enabled = true;
 			readyToWalk = false;
 		}
@@ -108,7 +107,6 @@ public class DogController : MonoBehaviour {
 			if (objRope.getTimeToJump ()) {
 				objPlayer.JumpWithDog ();
 				counter++;
-				Debug.Log ("Counter: " + counter + " jumps: " + jumps);
 			}
 		}
 	}
