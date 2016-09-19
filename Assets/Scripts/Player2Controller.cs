@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour {
+public class Player2Controller : MonoBehaviour {
 
 	public float jumpForce;
 	public bool grounded;
@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour {
 		ResumeTime ();
 		HideCounter ();
 	}
-		
+
 	// Update is called once per frame
 	void Update () {
 		HandleInput ();
@@ -126,13 +126,9 @@ public class PlayerController : MonoBehaviour {
 	void HandleInput()
 	{
 		if (!paused) {
-			if (Input.GetMouseButtonDown(0))
+			if (Input.GetKeyDown(KeyCode.K))
 			{
 				Jump();
-			}
-
-			if (Input.GetKeyDown(KeyCode.Space)) {
-				Jump ();
 			}
 		}
 	}
@@ -189,7 +185,7 @@ public class PlayerController : MonoBehaviour {
 				}
 			}
 		}
-	
+
 	}
 
 	void RestartGame()
@@ -241,7 +237,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		return transform.position;
 	}
-		
+
 
 	void OnGUI()
 	{
