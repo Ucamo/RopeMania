@@ -35,13 +35,28 @@ public class PlayerController : MonoBehaviour {
 	TestRope objRope;
 	bool paused=false;
 
+	int numPlayers=1;
+
 
 	// Use this for initialization
 	void Start () {
 		highScore=PlayerPrefs.GetInt("highScore", highScore);
 		theRope = GameObject.Find("Rope_Pixel");
 		objRope = theRope.GetComponent<TestRope>();
+		numPlayers=PlayerPrefs.GetInt("numPlayers", numPlayers);
+		CheckNumPlayers ();
 		StartWait ();
+	}
+
+	void CheckNumPlayers()
+	{
+		//if the number of players is 2, it will add a new player.
+		if (numPlayers == 2) {
+			Debug.Log("2 players");
+		} else {
+			Debug.Log("Players: "+numPlayers);
+		}
+
 	}
 
 	void StartWait(){

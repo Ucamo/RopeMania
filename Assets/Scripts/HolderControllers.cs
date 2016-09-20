@@ -27,6 +27,9 @@ public class HolderControllers : MonoBehaviour {
 
 	string start="";
 	string ropemania="";
+	string twoPlayerMode="";
+
+	int numPlayers=1;
 
 	void Start () {
 		startLeft = leftHolder.transform.position;
@@ -35,6 +38,8 @@ public class HolderControllers : MonoBehaviour {
 		HideFasterIcons ();
 		start = "Start";
 		ropemania = "Ropemania";
+		twoPlayerMode = "2P Mode";
+		PlayerPrefs.SetInt ("numPlayers", numPlayers);
 	}
 
 	void Update () {
@@ -153,7 +158,6 @@ public class HolderControllers : MonoBehaviour {
 
 		GUI.skin.font = pixelFont;
 		style.normal.textColor = Color.green;
-		//GUI.Label(new Rect(20, 20, 100, 100), scoreText, style);
 
 		float w = 100;
 		float h = 100;
@@ -182,7 +186,7 @@ public class HolderControllers : MonoBehaviour {
 			Application.LoadLevel("level1");
 		}
 
-		GUI.backgroundColor = c;
+
 
 		AdvancedTextRendering.DrawOutline(rect2, 
 			ropemania, 
@@ -191,9 +195,26 @@ public class HolderControllers : MonoBehaviour {
 			Color.red,
 			2f);
 
-	
+		Rect rect3 = new Rect((Screen.width-w)/2, (Screen.height-h)/2+100, w+100, h/2);
+
+		if( GUI.Button(rect3,""))
+		{
+			//Click on 2p mode
+			PlayerPrefs.SetInt ("numPlayers", 2);
+			Application.LoadLevel("level1");
+		}
+
+		GUI.backgroundColor = c;
+
+		style.normal.textColor = Color.yellow;
+		style.fontSize = 40;
+		style.fontStyle = FontStyle.Bold;
+
+		AdvancedTextRendering.DrawOutline(rect3, 
+			twoPlayerMode, 
+			style,
+			Color.black,
+			Color.yellow,
+			0.9f);
 	}
-		
-
-
 }
