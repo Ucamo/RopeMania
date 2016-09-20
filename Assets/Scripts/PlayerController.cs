@@ -36,9 +36,8 @@ public class PlayerController : MonoBehaviour {
 	bool paused=false;
 
 	int numPlayers=1;
+	public GameObject player2Prefab;
 
-
-	// Use this for initialization
 	void Start () {
 		highScore=PlayerPrefs.GetInt("highScore", highScore);
 		theRope = GameObject.Find("Rope_Pixel");
@@ -52,14 +51,28 @@ public class PlayerController : MonoBehaviour {
 	{
 		//if the number of players is 2, it will add a new player.
 		if (numPlayers == 2) {
-			Debug.Log("2 players");
-		} else {
-			Debug.Log("Players: "+numPlayers);
-		}
+			Vector3 oldPosition = getPlayerPosition();
+			movePlayer1ToPosition1 (oldPosition);
+			SpawnPlayer2OnPosition2 (oldPosition);
+		} 
+	}
 
+	void movePlayer1ToPosition1(Vector3 oldPosition)
+	{
+		//Position Player one on first position
+		transform.position = new Vector3 (-1f, oldPosition.y, oldPosition.z);
+	}
+
+	void SpawnPlayer2OnPosition2(Vector3 oldPosition)
+	{
+		//Spawn player 2 and position it on second position
+		Vector3 firePosition = new Vector3(1f, oldPosition.y, 0);
+		GameObject player2 = player2Prefab;
+		GameObject bPrefab = Instantiate(player2, firePosition, Quaternion.identity) as GameObject;
 	}
 
 	void StartWait(){
+		//Stops a certain amount of seconds and shows counters
 		StopTime ();
 		ShowCounter ();
 		StartCoroutine(WaitToStart());
@@ -93,7 +106,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	IEnumerator WaitToStart(){
-
+		//Count to 3 seconds in real time
 		int countUpTo = 3;
 		float waitTime = 1;
 
