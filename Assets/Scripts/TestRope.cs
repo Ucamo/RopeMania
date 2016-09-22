@@ -25,6 +25,9 @@ public class TestRope : MonoBehaviour {
 
 	bool timeToJump;
 
+	GameObject thePlayer2;
+	Player2Controller objPlayer2;
+
 	void Awake()
 	{
 		audioSource = GetComponent<AudioSource>();
@@ -35,11 +38,22 @@ public class TestRope : MonoBehaviour {
 		HideFasterIcons ();
 		thePlayer = GameObject.Find("Player");
 		objPlayer = thePlayer.GetComponent<PlayerController>();
+		thePlayer2 = GameObject.Find("Player2");
+		if(thePlayer2!=null)
+			objPlayer2 = thePlayer2.GetComponent<Player2Controller>();
 	}
 
 	void Update () {
-		if(!objPlayer.getGameOver())
-			transform.Rotate(Quaternion.Euler(60, 0, 0) * Vector3.left, -240 * Time.deltaTime*speed);
+		if (thePlayer2 != null) {
+			if (!objPlayer.getGameOver () && !objPlayer2.getGameOver())
+				transform.Rotate (Quaternion.Euler (60, 0, 0) * Vector3.left, -240 * Time.deltaTime * speed);
+		} else {
+			if (!objPlayer.getGameOver ())
+				transform.Rotate (Quaternion.Euler (60, 0, 0) * Vector3.left, -240 * Time.deltaTime * speed);
+
+		}
+
+
 		CheckRopePosition ();
 		CheckPlayerJumps ();
 	}

@@ -8,7 +8,7 @@ public class Player2Controller : MonoBehaviour {
 	public bool candoublejump;
 
 	public int jumps;
-	public int highScore;
+	public int highScoreP2;
 	public Font pixelFont;
 	string scoreText;
 	string highScoreText;
@@ -21,9 +21,6 @@ public class Player2Controller : MonoBehaviour {
 	public Sprite jumpSprite;
 	public Sprite idleSprite;
 
-	public Sprite counter1;
-	public Sprite counter2;
-	public Sprite counter3;
 
 	private AudioSource audioSource;
 	public AudioClip jumpSound;
@@ -34,19 +31,22 @@ public class Player2Controller : MonoBehaviour {
 	GameObject theRope;
 	TestRope objRope;
 	bool paused=false;
+	GameObject thePlayer;
+	PlayerController objPlayer;
 
 
 	// Use this for initialization
 	void Start () {
-		highScore=PlayerPrefs.GetInt("highScore", highScore);
+		highScoreP2=PlayerPrefs.GetInt("highScoreP2", highScoreP2);
 		theRope = GameObject.Find("Rope_Pixel");
 		objRope = theRope.GetComponent<TestRope>();
+		thePlayer = GameObject.Find("Player");
+		objPlayer = thePlayer.GetComponent<PlayerController>();
 		StartWait ();
 	}
 
 	void StartWait(){
 		StopTime ();
-		ShowCounter ();
 		StartCoroutine(WaitToStart());
 	}
 
@@ -85,11 +85,9 @@ public class Player2Controller : MonoBehaviour {
 		for (int i=0; i < countUpTo; i++) {
 			//Pause here
 			PlayStartSound();
-			SwitchCounterAnimation (countUpTo - i);
 			yield return new WaitForSeconds(waitTime*0.00001f);
 		}
 		ResumeTime ();
-		HideCounter ();
 	}
 
 	// Update is called once per frame
@@ -101,9 +99,9 @@ public class Player2Controller : MonoBehaviour {
 
 	void HandleScores()
 	{
-		if (jumps > highScore) {
-			highScore = jumps;
-			PlayerPrefs.SetInt ("highScore", highScore);
+		if (jumps > highScoreP2) {
+			highScoreP2 = jumps;
+			PlayerPrefs.SetInt ("highScoreP2", highScoreP2);
 		}
 
 	}
@@ -112,16 +110,7 @@ public class Player2Controller : MonoBehaviour {
 	{
 		return jumps;
 	}
-
-	void ShowCounter ()
-	{
-		counter.SetActive (true);
-	}
-
-	void HideCounter()
-	{
-		counter.SetActive (false);
-	}
+		
 
 	void HandleInput()
 	{
@@ -132,24 +121,7 @@ public class Player2Controller : MonoBehaviour {
 			}
 		}
 	}
-
-	void SwitchCounterAnimation(int number)
-	{
-		switch (number) {
-		case 1:
-			counter.GetComponent<SpriteRenderer> ().sprite = counter1;
-			break;
-		case 2:
-			counter.GetComponent<SpriteRenderer> ().sprite = counter2;
-			break;
-		case 3:
-			counter.GetComponent<SpriteRenderer> ().sprite = counter3;
-			break;
-		default:
-			HideCounter ();
-			break;
-		}
-	}
+		
 
 	void SwitchIdleAnimation()
 	{
@@ -196,7 +168,7 @@ public class Player2Controller : MonoBehaviour {
 
 	void Jump()
 	{
-		if (grounded && !gameOver) {
+		if (grounded && !gameOver && !objPlayer.getGameOver()) {
 			SwitchJumpAnimation ();
 			GetComponent<Rigidbody2D> ().velocity = new Vector2(GetComponent<Rigidbody2D> ().velocity.x, 0);
 			GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpForce));
@@ -230,7 +202,7 @@ public class Player2Controller : MonoBehaviour {
 	public void HandleJumpsText()
 	{
 		scoreText = "Jumps : " + jumps;
-		highScoreText = "High Score : " + highScore;
+		highScoreText = "High Score : " + highScoreP2;
 	}
 
 	public Vector3 getPlayerPosition()
@@ -249,33 +221,37 @@ public class Player2Controller : MonoBehaviour {
 
 		GUI.skin.font = pixelFont;
 		style.normal.textColor = Color.green;
-		//GUI.Label(new Rect(20, 20, 100, 100), scoreText, style);
 
-		AdvancedTextRendering.DrawOutline(new Rect(0,40,100,100), 
+		AdvancedTextRendering.DrawOutline(new Rect(Screen.width/2,40,100,100), 
 			scoreText, 
 			style,
 			Color.black,
-			Color.green,
+			Color.magenta,
 			0.9f);
 
-		AdvancedTextRendering.DrawOutline(new Rect(0,80,100,100), 
+		AdvancedTextRendering.DrawOutline(new Rect(Screen.width/2,80,100,100), 
 			highScoreText, 
 			style,
 			Color.black,
 			Color.white,
 			0.9f);
 
-		if (gameOver) {
-			style.fontSize = 60;
-			style.normal.textColor = Color.cyan;
-			Rect rect = new Rect((Screen.width)/2-150, (Screen.height)/2-50, 0, 0);
-			//GUI.Label(rect, "Try again",style);
-			AdvancedTextRendering.DrawOutline(rect, 
-				"Try again", 
-				style,
-				Color.black,
-				Color.cyan,
-				0.9f);
+		string gameOverMessage = "P1 Win";
+
+		bool p1Lost = objPlayer.getGameOver ();
+		if (!p1Lost) {
+			if (gameOver) {
+				style.fontSize = 60;
+				style.normal.textColor = Color.cyan;
+				Rect rect = new Rect ((Screen.width) / 2 - 150, (Screen.height) / 2 - 50, 0, 0);
+				//GUI.Label(rect, "Try again",style);
+				AdvancedTextRendering.DrawOutline (rect, 
+					gameOverMessage, 
+					style,
+					Color.black,
+					Color.cyan,
+					0.9f);
+			}
 		}
 	}
 

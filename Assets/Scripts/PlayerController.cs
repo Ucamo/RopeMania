@@ -37,12 +37,19 @@ public class PlayerController : MonoBehaviour {
 
 	int numPlayers=1;
 	public GameObject player2Prefab;
+	GameObject thePlayer2;
+	Player2Controller objPlayer2;
+
+	bool hasShowGameOverMessage=false;
 
 	void Start () {
 		highScore=PlayerPrefs.GetInt("highScore", highScore);
 		theRope = GameObject.Find("Rope_Pixel");
 		objRope = theRope.GetComponent<TestRope>();
 		numPlayers=PlayerPrefs.GetInt("numPlayers", numPlayers);
+		thePlayer2 = GameObject.Find("Player2");
+		if(thePlayer2!=null)
+			objPlayer2 = thePlayer2.GetComponent<Player2Controller>();
 		CheckNumPlayers ();
 		StartWait ();
 	}
@@ -297,23 +304,39 @@ public class PlayerController : MonoBehaviour {
 			Color.white,
 			0.9f);
 
-		if (gameOver) {
-			style.fontSize = 60;
-			style.normal.textColor = Color.cyan;
-			Rect rect = new Rect((Screen.width)/2-150, (Screen.height)/2-50, 0, 0);
-			//GUI.Label(rect, "Try again",style);
-			AdvancedTextRendering.DrawOutline(rect, 
-				"Try again", 
-				style,
-				Color.black,
-				Color.cyan,
-				0.9f);
+		string gameOverMessage = "Try again";
+		if (numPlayers == 2) {
+			if (objPlayer2 != null) {
+				if (!objPlayer2.getGameOver ()) {
+					gameOverMessage = "P2 Win";
+				}
+			}
+		}
+		if (!hasShowGameOverMessage) {
+			if (gameOver) {
+				style.fontSize = 60;
+				style.normal.textColor = Color.cyan;
+				Rect rect = new Rect ((Screen.width) / 2 - 150, (Screen.height) / 2 - 50, 0, 0);
+				//GUI.Label(rect, "Try again",style);
+				AdvancedTextRendering.DrawOutline (rect, 
+					gameOverMessage, 
+					style,
+					Color.black,
+					Color.cyan,
+					0.9f);
+				hasShowGameOverMessage = true;
+			}
 		}
 	}
 
 	public bool getGameOver()
 	{
 		return gameOver;
+	}
+
+	public void setGameOver()
+	{
+		gameOver = true;
 	}
 
 	void PlayJumpSound()
