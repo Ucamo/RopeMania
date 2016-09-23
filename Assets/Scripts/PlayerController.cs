@@ -47,7 +47,6 @@ public class PlayerController : MonoBehaviour {
 		theRope = GameObject.Find("Rope_Pixel");
 		objRope = theRope.GetComponent<TestRope>();
 		numPlayers=PlayerPrefs.GetInt("numPlayers", numPlayers);
-
 		CheckNumPlayers ();
 		StartWait ();
 	}
@@ -171,6 +170,7 @@ public class PlayerController : MonoBehaviour {
 		if (!paused) {
 			if (Input.GetMouseButtonDown(0))
 			{
+				if(numPlayers!=2)
 				Jump();
 			}
 
@@ -315,15 +315,28 @@ public class PlayerController : MonoBehaviour {
 		string gameOverMessage = "Try again";
 		Color colorGameOver = Color.cyan;
 		if (numPlayers == 2) {
-			if (objPlayer2 != null) {
-				if (!objPlayer2.getGameOver ()) {
-					gameOverMessage = "P2 Win";
-					colorGameOver = Color.magenta;
-				}
+			gameOverMessage = "P2 Win";
+			colorGameOver = Color.magenta;
+			if (objPlayer2.getGameOver ()) {
+				gameOverMessage = "Draw";
+				colorGameOver = Color.cyan;
 			}
 		}
 		Color c = GUI.backgroundColor;
-		GUI.backgroundColor = Color.clear;
+		//GUI.backgroundColor = Color.clear;
+
+
+		if (!gameOver && !paused) {
+			if (numPlayers == 2) {
+				Rect rectP1 = new Rect (0, 0, (Screen.width / 2), (Screen.height));
+				if( GUI.Button(rectP1,""))
+				{
+					if (!paused) {
+						Jump ();
+					}
+				}
+			}
+		}
 
 			if (gameOver) {
 				style.fontSize = 60;
@@ -338,14 +351,17 @@ public class PlayerController : MonoBehaviour {
 					0.9f);
 				StopTime ();
 				Rect rect3 = new Rect(0, 0,Screen.width, Screen.height);
+				GUI.depth = 1;
 				if( GUI.Button(rect3,""))
 				{
-					//Click on 2p mode
 					ResumeTime();
 					Jump();
 				}
 			}
-		GUI.backgroundColor = c;
+
+
+	
+		//GUI.backgroundColor = c;
 	}
 
 	public bool getGameOver()
