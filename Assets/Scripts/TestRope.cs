@@ -38,21 +38,24 @@ public class TestRope : MonoBehaviour {
 		HideFasterIcons ();
 		thePlayer = GameObject.Find("Player");
 		objPlayer = thePlayer.GetComponent<PlayerController>();
-		thePlayer2 = GameObject.Find("Player2");
-		if(thePlayer2!=null)
-			objPlayer2 = thePlayer2.GetComponent<Player2Controller>();
 	}
 
 	void Update () {
+
+		thePlayer2 = objPlayer.getP2Reference ();
 		if (thePlayer2 != null) {
-			if (!objPlayer.getGameOver () && !objPlayer2.getGameOver())
+			objPlayer2 = thePlayer2.GetComponent<Player2Controller> ();
+		} 
+		if (thePlayer2 != null) {
+			if (!objPlayer.getGameOver () && !objPlayer2.getGameOver ()) {
 				transform.Rotate (Quaternion.Euler (60, 0, 0) * Vector3.left, -240 * Time.deltaTime * speed);
+			}
+				
 		} else {
-			if (!objPlayer.getGameOver ())
+			if (!objPlayer.getGameOver ()) {
 				transform.Rotate (Quaternion.Euler (60, 0, 0) * Vector3.left, -240 * Time.deltaTime * speed);
-
+			}
 		}
-
 
 		CheckRopePosition ();
 		CheckPlayerJumps ();

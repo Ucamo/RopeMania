@@ -47,9 +47,7 @@ public class PlayerController : MonoBehaviour {
 		theRope = GameObject.Find("Rope_Pixel");
 		objRope = theRope.GetComponent<TestRope>();
 		numPlayers=PlayerPrefs.GetInt("numPlayers", numPlayers);
-		thePlayer2 = GameObject.Find("Player2");
-		if(thePlayer2!=null)
-			objPlayer2 = thePlayer2.GetComponent<Player2Controller>();
+
 		CheckNumPlayers ();
 		StartWait ();
 	}
@@ -61,6 +59,7 @@ public class PlayerController : MonoBehaviour {
 			Vector3 oldPosition = getPlayerPosition();
 			movePlayer1ToPosition1 (oldPosition);
 			SpawnPlayer2OnPosition2 (oldPosition);
+
 		} 
 	}
 
@@ -76,6 +75,15 @@ public class PlayerController : MonoBehaviour {
 		Vector3 firePosition = new Vector3(1f, oldPosition.y, 0);
 		GameObject player2 = player2Prefab;
 		GameObject bPrefab = Instantiate(player2, firePosition, Quaternion.identity) as GameObject;
+		thePlayer2 =  bPrefab;
+		if (bPrefab != null) {
+			objPlayer2 = bPrefab.GetComponent<Player2Controller> ();
+		}
+	}
+
+	public GameObject getP2Reference()
+	{
+		return thePlayer2;
 	}
 
 	void StartWait(){
@@ -305,14 +313,18 @@ public class PlayerController : MonoBehaviour {
 			0.9f);
 
 		string gameOverMessage = "Try again";
+		Color colorGameOver = Color.cyan;
 		if (numPlayers == 2) {
 			if (objPlayer2 != null) {
 				if (!objPlayer2.getGameOver ()) {
 					gameOverMessage = "P2 Win";
+					colorGameOver = Color.magenta;
 				}
 			}
 		}
-		if (!hasShowGameOverMessage) {
+		Color c = GUI.backgroundColor;
+		GUI.backgroundColor = Color.clear;
+
 			if (gameOver) {
 				style.fontSize = 60;
 				style.normal.textColor = Color.cyan;
@@ -322,11 +334,18 @@ public class PlayerController : MonoBehaviour {
 					gameOverMessage, 
 					style,
 					Color.black,
-					Color.cyan,
+					colorGameOver,
 					0.9f);
-				hasShowGameOverMessage = true;
+				StopTime ();
+				Rect rect3 = new Rect(0, 0,Screen.width, Screen.height);
+				if( GUI.Button(rect3,""))
+				{
+					//Click on 2p mode
+					ResumeTime();
+					Jump();
+				}
 			}
-		}
+		GUI.backgroundColor = c;
 	}
 
 	public bool getGameOver()

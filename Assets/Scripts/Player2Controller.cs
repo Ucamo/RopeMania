@@ -235,6 +235,9 @@ public class Player2Controller : MonoBehaviour {
 			Color.black,
 			Color.white,
 			0.9f);
+		
+		Color c = GUI.backgroundColor;
+		GUI.backgroundColor = Color.clear;
 
 		string gameOverMessage = "P1 Win";
 
@@ -249,10 +252,19 @@ public class Player2Controller : MonoBehaviour {
 					gameOverMessage, 
 					style,
 					Color.black,
-					Color.cyan,
+					Color.green,
 					0.9f);
+				StopTime ();
+				Rect rect3 = new Rect(0, 0,Screen.width, Screen.height);
+				if( GUI.Button(rect3,""))
+				{
+					//Click on 2p mode
+					ResumeTime();
+					Jump();
+				}
 			}
 		}
+		GUI.backgroundColor = c;
 	}
 
 	public bool getGameOver()
