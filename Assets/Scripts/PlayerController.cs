@@ -58,7 +58,6 @@ public class PlayerController : MonoBehaviour {
 			Vector3 oldPosition = getPlayerPosition();
 			movePlayer1ToPosition1 (oldPosition);
 			SpawnPlayer2OnPosition2 (oldPosition);
-
 		} 
 	}
 
@@ -323,22 +322,32 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 		Color c = GUI.backgroundColor;
-		//GUI.backgroundColor = Color.clear;
+		GUI.backgroundColor = Color.clear;
 
 
 		if (!gameOver && !paused) {
 			if (numPlayers == 2) {
-				Rect rectP1 = new Rect (0, 0, (Screen.width / 2), (Screen.height));
-				if( GUI.Button(rectP1,""))
-				{
-					if (!paused) {
-						Jump ();
+				if (!objPlayer2.getGameOver ()) {
+					Rect rectP1 = new Rect (0, 0, (Screen.width / 2), (Screen.height));
+					if( GUI.Button(rectP1,""))
+					{
+						if (!paused) {
+							Jump ();
+						}
+					}
+					Rect rectP2 = new Rect ((Screen.width / 2), 0, (Screen.width / 2), (Screen.height));
+					if( GUI.Button(rectP2,""))
+					{
+						if (!paused) {
+							objPlayer2.Jump();
+						}
 					}
 				}
+		
 			}
 		}
 
-			if (gameOver) {
+		if (gameOver) {
 				style.fontSize = 60;
 				style.normal.textColor = Color.cyan;
 				Rect rect = new Rect ((Screen.width) / 2 - 150, (Screen.height) / 2 - 50, 0, 0);
@@ -358,9 +367,6 @@ public class PlayerController : MonoBehaviour {
 					Jump();
 				}
 			}
-
-
-	
 		//GUI.backgroundColor = c;
 	}
 

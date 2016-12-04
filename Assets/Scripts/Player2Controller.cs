@@ -166,7 +166,7 @@ public class Player2Controller : MonoBehaviour {
 	}
 
 
-	void Jump()
+	public void Jump()
 	{
 		if (grounded && !gameOver && !objPlayer.getGameOver()) {
 			SwitchJumpAnimation ();
