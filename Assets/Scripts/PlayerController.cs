@@ -184,31 +184,31 @@ public class PlayerController : MonoBehaviour {
 			{
 				Jump();
 			}
-			if (Input.GetTouch(0).phase == TouchPhase.Stationary)
+			if (Input.GetTouch(0).phase == TouchPhase.Began)
 			{
 				touch1Bool = true;
 
 			}
-			else
-			{
-				touch1Bool = false;
-			}
 
-			if (Input.GetTouch(1).phase == TouchPhase.Stationary)
+			if (Input.GetTouch(1).phase == TouchPhase.Began)
 			{
 				touch2Bool = true;
 
 			}
-			else
+			if (touch1Bool && touch2Bool)
+			{
+					Jump();
+					objPlayer2.Jump();
+			}
+			if (Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetTouch(0).phase == TouchPhase.Stationary || Input.GetTouch(0).phase == TouchPhase.Moved)
+			{
+				touch1Bool = false;
+			}
+			if (Input.GetTouch(1).phase == TouchPhase.Ended || Input.GetTouch(1).phase == TouchPhase.Stationary || Input.GetTouch(1).phase == TouchPhase.Moved)
 			{
 				touch2Bool = false;
 			}
 
-			if (touch1Bool && touch2Bool)
-			{
-				Jump();
-				objPlayer2.Jump();
-			}
 		}
 	}
 
