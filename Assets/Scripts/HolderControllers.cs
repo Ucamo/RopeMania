@@ -48,6 +48,11 @@ public class HolderControllers : MonoBehaviour {
 
 	void HandleMovement()
 	{
+
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			Application.Quit();
+		}
 		 positionLeft = leftHolder.transform.position;
 		 positionRight = rightHolder.transform.position;
 		 positionPlayer = player.transform.position;
@@ -176,7 +181,7 @@ public class HolderControllers : MonoBehaviour {
 		style.fontSize = 80;
 		style.fontStyle = FontStyle.Bold;
 
-		Rect rect2 = new Rect((Screen.width-w)/4, (Screen.height-h)/2-100, (Screen.width/2)+100	, h);
+		Rect rect2 = new Rect((Screen.width-w)/3, (Screen.height-h)/2-100, (Screen.width/2)+100	, h);
 	
 		Color c = GUI.backgroundColor;
 		GUI.backgroundColor = Color.clear;
@@ -195,7 +200,7 @@ public class HolderControllers : MonoBehaviour {
 			Color.red,
 			2f);
 
-		Rect rect3 = new Rect((Screen.width-w)/2, (Screen.height-h)/2+100, w+100, h/2);
+		Rect rect3 = new Rect((Screen.width-w)/2, (Screen.height-h)/2+150, w+100, h/2);
 
 		if( GUI.Button(rect3,""))
 		{

@@ -40,6 +40,9 @@ public class PlayerController : MonoBehaviour {
 	GameObject thePlayer2;
 	Player2Controller objPlayer2;
 
+	bool touch1Bool;
+	bool touch2Bool;
+
 	bool hasShowGameOverMessage=false;
 
 	void Start () {
@@ -169,12 +172,42 @@ public class PlayerController : MonoBehaviour {
 		if (!paused) {
 			if (Input.GetMouseButtonDown(0))
 			{
-				if(numPlayers!=2)
-				Jump();
+				if (numPlayers != 2)
+					Jump();
+			}
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				Application.LoadLevel("menu");
 			}
 
-			if (Input.GetKeyDown(KeyCode.Space)) {
-				Jump ();
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				Jump();
+			}
+			if (Input.GetTouch(0).phase == TouchPhase.Stationary)
+			{
+				touch1Bool = true;
+
+			}
+			else
+			{
+				touch1Bool = false;
+			}
+
+			if (Input.GetTouch(1).phase == TouchPhase.Stationary)
+			{
+				touch2Bool = true;
+
+			}
+			else
+			{
+				touch2Bool = false;
+			}
+
+			if (touch1Bool && touch2Bool)
+			{
+				Jump();
+				objPlayer2.Jump();
 			}
 		}
 	}
@@ -331,26 +364,20 @@ public class PlayerController : MonoBehaviour {
 					Rect rectP1 = new Rect (0, 0, (Screen.width / 2), (Screen.height));
 					if( GUI.Button(rectP1,""))
 					{
-						if (!paused) {
-							Jump ();
+						if (!paused)
+						{
+							Jump();
 						}
 					}
 					Rect rectP2 = new Rect ((Screen.width / 2), 0, (Screen.width / 2), (Screen.height));
 					if( GUI.Button(rectP2,""))
 					{
-						if (!paused) {
+						if (!paused)
+						{
 							objPlayer2.Jump();
 						}
 					}
 
-					if (GUI.Button(rectP2, "")&&GUI.Button(rectP1,""))
-					{
-						if (!paused)
-						{
-							Jump();
-							objPlayer2.Jump();
-						}
-					}
 				}
 		
 			}
