@@ -342,6 +342,15 @@ public class PlayerController : MonoBehaviour {
 							objPlayer2.Jump();
 						}
 					}
+
+					if (GUI.Button(rectP2, "")&&GUI.Button(rectP1,""))
+					{
+						if (!paused)
+						{
+							Jump();
+							objPlayer2.Jump();
+						}
+					}
 				}
 		
 			}

@@ -237,7 +237,7 @@ public class Player2Controller : MonoBehaviour {
 			0.9f);
 		
 		Color c = GUI.backgroundColor;
-		//GUI.backgroundColor = Color.clear;
+		GUI.backgroundColor = Color.clear;
 
 		string gameOverMessage = "P1 Win";
 
